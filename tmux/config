@@ -1,0 +1,23 @@
+#
+# TMUX Configuration file
+#
+
+# Reset prefix
+set-option -g prefix C-a
+unbind C-b
+bind-key C-a send prefix
+
+# Split window using | and -
+unbind %
+bind | split-window -h
+bind - split-window -v
+
+# Mouse options
+set-option -g mouse on
+
+# Window options.
+set-window-option -g mode-keys vi
+set-window-option -g window-status-current-bg red
+
+# Makes window numbering start from 1, instead of 0
+set -g base-index 1

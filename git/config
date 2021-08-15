@@ -1,0 +1,15 @@
+[user]
+  name = dvraaij
+  email = dvraaij@users.noreply.github.com
+[core]
+  editor = vim
+  autocrlf = input
+[push]
+  default = current
+[format]
+  pretty = oneline
+[log]
+  abbrevCommit = true
+[alias]
+  s  = status
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all

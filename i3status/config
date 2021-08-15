@@ -1,0 +1,56 @@
+general {
+        output_format = "i3bar"
+        colors = false
+        interval = 5
+}
+
+order += "disk /"
+order += "wireless wlan0"
+order += "ethernet enp0s3"
+order += "battery 0"
+order += "cpu_usage"
+order += "memory"
+order += "tztime local"
+
+# See Font Awesome Cheatsheet for icons
+#   https://fontawesome.com/v4.7/cheatsheet/
+
+disk "/" {
+         format = " %free"
+}
+ 
+wireless wlan0 {
+         format_up = " (%quality at %essid, %bitrate) %ip"
+         format_down = " n/a"
+}
+
+ethernet enp0s3{
+         format_up = " %ip (%speed)"
+         format_down = " n/a"
+}
+
+battery 0 {
+        format = "%status %percentage"
+        format_down = "No battery"
+        status_chr = ""
+        status_bat = ""
+        status_unk = ""
+        status_full = ""
+        path = "/sys/class/power_supply/BAT%d/uevent"
+        low_threshold = 10
+        integer_battery_capacity = true
+}
+
+cpu_usage {
+        format = " %usage"
+}
+
+memory {
+        format = " %used"
+        threshold_degraded = "10%"
+        format_degraded = " %free (FREE)"
+}
+
+tztime local {
+       format = "%d %b %Y %H:%M"
+} 

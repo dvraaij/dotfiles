@@ -1,0 +1,25 @@
+" Set 'nocompatible' to ward off unexpected things that your distro might
+" have made, as well as sanely reset options when re-sourcing .vimrc
+set nocompatible
+
+" Enable syntax highlighting
+syntax on
+
+" Line numbering
+set number
+
+" Right margin
+set colorcolumn=80
+
+" Tab specific option
+set tabstop=8         " A tab is 8 spaces
+set expandtab         " Always uses spaces instead of tabs
+set softtabstop=4     " Insert 4 spaces when tab is pressed
+set shiftwidth=4      " An indent is 4 spaces
+set shiftround        " Round indent to nearest shiftwidth multiple
+
+" Mitigate ESC key delay
+set timeoutlen=1000 ttimeoutlen=0
+
+" Always show the statusline
+set laststatus=2

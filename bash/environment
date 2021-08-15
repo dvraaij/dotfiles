@@ -1,0 +1,28 @@
+# colored GCC warnings and errors
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# setup environment for OPAM
+# eval $(opam env)
+
+# add Lean to path.
+# PATH="$HOME/.elan/bin:$PATH"
+
+# add GNAT, SPARK and PolyORB
+# GNAT_CE_DIR_X86_64="$HOME/opt/GNAT/2021"
+# GNAT_CE_DIR_ARM="$HOME/opt/GNAT/2021-arm-elf"
+
+# PATH="$GNAT_CE_DIR_X86_64/bin:$PATH
+# PATH="$GNAT_CE_DIR_ARM/bin:$PATH
+# PATH="$HOME/opt/PolyORB/bin:$PATH
+
+# SPARK Lemmas.
+# export SPARK_LEMMAS_OBJECT_DIR=$GNAT_CE_DIR_X86_64/include/spark/obj
+# export SPARK_LEMMAS_INSTALLED=True
+# export SPARK_LEMMAS_BODY_MODE=Off
+
+# export SPARK_HEAP_OBJECT_DIR=$GNAT_CE_DIR_X86_64/include/spark/obj
+# export SPARK_HEAP_INSTALLED=True
+
+# export GPR_PROJECT_PATH=$GNAT_CE_DIR_X86_64/lib/gnat/:$GPR_PROJECT_PATH
+# export GPR_PROJECT_PATH=$HOME/opt/gtkada/lib/gnat:$GPR_PROJECT_PATH
+# export GPR_PROJECT_PATH=$HOME/opt/PolyORB/lib/gnat/:$GPR_PROJECT_PATH

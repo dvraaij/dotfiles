@@ -1,0 +1,7 @@
+# Ignore backup files.
+**/*~
+
+# Ignore specific folders.
+mozilla/*
+pulse/*
+pipewire/*
