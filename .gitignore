@@ -1,7 +1,15 @@
 # Ignore backup files.
 **/*~
 
+# Ignore COPR config.
+copr
+
 # Ignore specific folders.
+alire/*
+dconf/*
+GIMP/*
+htop/*
+inkscape/*
 mozilla/*
-pulse/*
 pipewire/*
+pulse/*
