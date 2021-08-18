@@ -211,5 +211,8 @@ bar {
 # key binding for locking the system.
 bindsym $mod+shift+x exec i3lock
 
+# mouse behavior.
+focus_follows_mouse no
+
 # wallpaper
 exec_always feh --bg-center ~/.config/i3/wallpaper.png
