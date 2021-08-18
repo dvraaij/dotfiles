@@ -1,2 +1,5 @@
 auto-save-list/*
+ido.last
 elpa/*
+transient/*
+smex-items

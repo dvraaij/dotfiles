@@ -2,6 +2,8 @@
 **/*~
 
 # Ignore specific folders.
+dconf/*
 mozilla/*
 pulse/*
 pipewire/*
+	
