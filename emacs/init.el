@@ -1,11 +1,132 @@
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
 (package-initialize)
+
+(load "~/.config/emacs/rc/rc.el")
+
+;; No startup screen.
+(setq inhibit-startup-screen 1)
+
+;;; Appearance
+(defun rc/get-default-font ()
+  (cond
+   ((eq system-type 'windows-nt) "Consolas-12")
+   ((eq system-type 'gnu/linux) "Iosevka-12")))
+
+(add-to-list 'default-frame-alist `(font . ,(rc/get-default-font)))
+
+(tool-bar-mode 0)
+(menu-bar-mode 1)
+(scroll-bar-mode 1)
+(column-number-mode 1)
+(show-paren-mode 1)
+
+;; Easy switching between windows.
+(windmove-default-keybindings)
+
+;; Backups
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+
+;; use ido and smex.
+(ido-mode 1)
+
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+
+;;; Whitespace mode
+(defun rc/set-up-whitespace-handling ()
+  (interactive)
+  (whitespace-mode 1)
+  (add-to-list 'write-file-functions 'delete-trailing-whitespace))
+
+(add-hook 'tuareg-mode-hook 'rc/set-up-whitespace-handling)
+(add-hook 'c++-mode-hook 'rc/set-up-whitespace-handling)
+(add-hook 'c-mode-hook 'rc/set-up-whitespace-handling)
+(add-hook 'emacs-lisp-mode 'rc/set-up-whitespace-handling)
+(add-hook 'java-mode-hook 'rc/set-up-whitespace-handling)
+(add-hook 'lua-mode-hook 'rc/set-up-whitespace-handling)
+(add-hook 'rust-mode-hook 'rc/set-up-whitespace-handling)
+(add-hook 'scala-mode-hook 'rc/set-up-whitespace-handling)
+(add-hook 'markdown-mode-hook 'rc/set-up-whitespace-handling)
+(add-hook 'haskell-mode-hook 'rc/set-up-whitespace-handling)
+(add-hook 'python-mode-hook 'rc/set-up-whitespace-handling)
+(add-hook 'erlang-mode-hook 'rc/set-up-whitespace-handling)
+(add-hook 'asm-mode-hook 'rc/set-up-whitespace-handling)
+(add-hook 'nasm-mode-hook 'rc/set-up-whitespace-handling)
+(add-hook 'go-mode-hook 'rc/set-up-whitespace-handling)
+(add-hook 'nim-mode-hook 'rc/set-up-whitespace-handling)
+(add-hook 'yaml-mode-hook 'rc/set-up-whitespace-handling)
+
+;;; Display-line-numbers-mode
+(when (version<= "26.0.50" emacs-version)
+  (global-display-line-numbers-mode))
+
+;;; Magit
+;; magit requres this lib, but it is not installed automatically on
+;; Windows.
+(rc/require 'cl-lib)
+(rc/require 'magit)
+
+(setq magit-auto-revert-mode nil)
+
+(global-set-key (kbd "C-c m s") 'magit-status)
+(global-set-key (kbd "C-c m l") 'magit-log)
+
+;;; Editorconfig
+(rc/require 'editorconfig)
+(editorconfig-mode 1)
+
+;;; Ada mode (also requires gnatcoll-sqlite and gnatcoll_xref)
+;; (rc/require 'ada-mode)
+;; 
+;; (defgroup project-build nil
+;;   "LSP options for Project"
+;;   :group 'ada-mode)
+;; 
+;; (defcustom project-build-type "Debug"
+;;   "Controls the type of build of a project.
+;;    Default is Debug, other choices are Release and Coverage."
+;;   :type '(choice
+;;           (const "Debug")
+;;           (const "Coverage")
+;;           (const "Release"))
+;;   :group 'project-build)
+;; 
+;; (setq ada-xref-tool 'ada-gnat-xref)
+
+;;; LaTeX mode
+(add-hook 'tex-mode-hook
+          (lambda ()
+            (interactive)
+            (add-to-list 'tex-verbatim-environments "code")))
+
+;; Text mode
+(add-hook 'text-mode-hook
+          '(lambda ()
+             (setq indent-tabs-mode nil)
+             (setq tab-width 4)
+             (setq indent-line-function (quote insert-tab))))
+
+;; Enable uppercase and lower-case commands (C-x C-u and C-x C-l)
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
+
+;;; Multiple cursors
+(rc/require 'multiple-cursors)
+
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->")         'mc/mark-next-like-this)
+(global-set-key (kbd "C-<")         'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<")     'mc/mark-all-like-this)
+(global-set-key (kbd "C-\"")        'mc/skip-to-next-like-this)
+(global-set-key (kbd "C-:")         'mc/skip-to-previous-like-this)
+
+;;; Move Text
+(rc/require 'move-text)
+(global-set-key (kbd "M-p") 'move-text-up)
+(global-set-key (kbd "M-n") 'move-text-down)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -16,11 +137,10 @@
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
    ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
- '(column-number-mode t)
  '(custom-enabled-themes '(deeper-blue))
- '(custom-safe-themes
-   '("fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "5f824cddac6d892099a91c3f612fcf1b09bb6c322923d779216ab2094375c5ee" default))
- '(font-use-system-font t)
+ '(custom-safe-themes default)
+ '(package-selected-packages
+   '(smex multiple-cursors move-text magit editorconfig dash-functional)))
  '(frame-brackground-mode 'dark)
  '(global-display-line-numbers-mode t)
  '(hl-todo-keyword-faces
@@ -38,12 +158,13 @@
      ("TEMP" . "#b1951d")
      ("FIXME" . "#dc752f")
      ("XXX+" . "#dc752f")
-     ("\\?\\?\\?+" . "#dc752f")))
+     ("\\?\\?\\?+" . "#dc752f"))
  '(package-selected-packages
-   '(lean-mode tuareg company company-lsp company-coq lsp-mode))
+   '(smex magit lean-mode tuareg company company-lsp company-coq lsp-mode))
  '(pdf-view-midnight-colors '("#b2b2b2" . "#292b2e"))
- '(show-paren-mode t)
- '(tool-bar-mode nil))
+ '(whitespace-style
+   (quote
+    (face tabs spaces trailing space-before-tab newline indentation empty space-after-tab space-mark tab-mark))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -52,56 +173,6 @@
  ;; If there is more than one, they won't work right.
  '(tuareg-font-lock-attribute-face ((t (:inherit font-lock-preprocessor-face)))))
 
-;; -------------
-;; -- General --
-;; -------------
-
-;; No startup screen.
-(setq inhibit-startup-screen 1)
-
-;; Lines, columns, etc.
-(tool-bar-mode 0)
-(menu-bar-mode 1)
-(scroll-bar-mode 1)
-(column-number-mode t)
-(show-paren-mode 1)
-(global-display-line-numbers-mode t)
-
-;; (global-hl-line-mode 1)
-;; (set-face-background hl-line-face "RoyalBlue4")
-
-;; Always use spaces instead of TABs.
-(setq-default indent-tabs-mode nil)
-
-;; Easy switching between windows.
-(windmove-default-keybindings)
-
-;; Backups
-(setq backup-directory-alist
-      `((".*" . ,temporary-file-directory)))
-(setq auto-save-file-name-transforms
-      `((".*" ,temporary-file-directory t)))
-
-;; ---------
-;; -- Ada --
-;; ---------
-
-;; Ada Language Server
-(defgroup project-build nil
-  "LSP options for Project"
-  :group 'ada-mode)
-
-(defcustom project-build-type "Debug"
-  "Controls the type of build of a project.
-   Default is Debug, other choices are Release and Coverage."
-  :type '(choice
-          (const "Debug")
-          (const "Coverage")
-          (const "Release"))
-  :group 'project-build)
-
-;; Ada mode
-;; (setq ada-xref-tool 'ada-gnat-xref)
-
 ;; Fix
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+
