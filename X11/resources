@@ -80,7 +80,8 @@ URxvt.keysym.Control-Down:   \033[1;5B
 URxvt.keysym.Control-Right:  \033[1;5C
 URxvt.keysym.Control-Left:   \033[1;5D
 
-! Copy Paste & Other Extensions.
+! Copy Paste & Other Extensions (requires the xclip package).
+!   note: copy/paste via Ctrl/Shift-Insert
 URxvt.perl-ext-common:       default,clipboard
 URxvt.copyCommand:           xclip -i -selection clipboard
 URxvt.pasteCommand:          xclip -o -selection clipboard
