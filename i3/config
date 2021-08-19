@@ -216,3 +216,8 @@ focus_follows_mouse no
 
 # wallpaper
 exec_always feh --bg-center ~/.config/i3/wallpaper.png
+
+# assign Workspaces:
+assign [class="Gnatstudio_exe"] $ws2
+assign [class="Firefox"]        $ws3
+
