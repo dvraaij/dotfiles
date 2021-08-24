@@ -52,7 +52,8 @@ Xft.hintstyle:  hintmedium
 !   see also urxvt(1) and urxvt(7).
 
 ! Appearance
-URxvt.font:             xft:monospace:size=FONTSIZE
+!URxvt.font:             xft:monospace:size=9
+URxvt.font:             xft:iosevka:size=11
 URxvt.letterSpace:      0      
 URxvt.lineSpace:        0
 URxvt.internalBorder:   6
