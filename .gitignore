@@ -2,7 +2,9 @@
 **/*~
 
 # Ignore specific folders.
+alire/*
 dconf/*
+GIMP/*
 mozilla/*
 pulse/*
 pipewire/*
