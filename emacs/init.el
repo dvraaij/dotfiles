@@ -96,6 +96,16 @@
 ;; 
 ;; (setq ada-xref-tool 'ada-gnat-xref)
 
+;;; c-mode
+(setq-default c-basic-offset 4
+              c-default-style '((java-mode . "java")
+                                (awk-mode . "awk")
+                                (other . "bsd")))
+
+(add-hook 'c-mode-hook (lambda ()
+                         (interactive)
+                         (c-toggle-comment-style -1)))
+
 ;;; LaTeX mode
 (add-hook 'tex-mode-hook
           (lambda ()
