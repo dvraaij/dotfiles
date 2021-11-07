@@ -28,7 +28,7 @@
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
 
-;; use ido and smex.
+;; Use ido and smex.
 (ido-mode 1)
 
 (global-set-key (kbd "M-x") 'smex)
@@ -38,7 +38,7 @@
 ;;; Whitespace mode
 (defun rc/set-up-whitespace-handling ()
   (interactive)
-  (whitespace-mode 1)
+  (whitespace-mode 0)
   (add-to-list 'write-file-functions 'delete-trailing-whitespace))
 
 (add-hook 'tuareg-mode-hook 'rc/set-up-whitespace-handling)
@@ -60,7 +60,7 @@
 (add-hook 'why3-mode-hook 'rc/set-up-whitespace-handling)
 (add-hook 'yaml-mode-hook 'rc/set-up-whitespace-handling)
 
-;;; Display-line-numbers-mode
+;;; display-line-numbers-mode
 (when (version<= "26.0.50" emacs-version)
   (global-display-line-numbers-mode))
 
