@@ -57,6 +57,7 @@
 (add-hook 'nasm-mode-hook 'rc/set-up-whitespace-handling)
 (add-hook 'go-mode-hook 'rc/set-up-whitespace-handling)
 (add-hook 'nim-mode-hook 'rc/set-up-whitespace-handling)
+(add-hook 'why3-mode-hook 'rc/set-up-whitespace-handling)
 (add-hook 'yaml-mode-hook 'rc/set-up-whitespace-handling)
 
 ;;; Display-line-numbers-mode
@@ -105,6 +106,29 @@
 (add-hook 'c-mode-hook (lambda ()
                          (interactive)
                          (c-toggle-comment-style -1)))
+
+;;; why3-mode.
+
+;;    Note that Fedora package why3-emacs copies the why3.el and why3.elc
+;;    to a location that works only if OPAM is installed. You ned to
+;;    copy them to the corredt location manually.
+;;
+;;       cd /usr/share/why3
+;;       sudo mkdir emacs
+;;       sudo cp /usr/share/emacs/site-lisp/why3.* ./emacs
+
+(setq why3-share
+      (if (boundp 'why3-share) why3-share (ignore-errors (car (process-lines "why3" "--print-datadir")))))
+
+(setq why3el
+      (let ((f (expand-file-name "emacs/why3.elc" why3-share)))
+	(if (file-readable-p f) f
+	  (let ((f (expand-file-name "emacs/site-lisp/why3.elc" opam-share)))
+	    (if (file-readable-p f) f nil)))))
+
+(when why3el
+  (autoload 'why3-mode why3el "Major mode for Why3." t)
+  (setq auto-mode-alist (cons '("\\.mlw$" . why3-mode) auto-mode-alist)))
 
 ;;; LaTeX mode
 (add-hook 'tex-mode-hook
