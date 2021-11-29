@@ -2,7 +2,7 @@
 
 (load "~/.config/emacs/rc/rc.el")
 
-;; No startup screen.
+;;; No startup screen.
 (setq inhibit-startup-screen 1)
 
 ;;; Appearance
@@ -18,8 +18,9 @@
 (scroll-bar-mode 1)
 (column-number-mode 1)
 (show-paren-mode 1)
+(size-indication-mode 1)
 
-;; Easy switching between windows.
+;;; Easy switching between windows.
 (windmove-default-keybindings)
 
 ;;; Easy window resizing.
@@ -53,10 +54,10 @@
   (whitespace-mode 0)
   (add-to-list 'write-file-functions 'delete-trailing-whitespace))
 
+(add-hook 'emacs-lisp-mode 'rc/set-up-whitespace-handling)
 (add-hook 'tuareg-mode-hook 'rc/set-up-whitespace-handling)
 (add-hook 'c++-mode-hook 'rc/set-up-whitespace-handling)
 (add-hook 'c-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'emacs-lisp-mode 'rc/set-up-whitespace-handling)
 (add-hook 'java-mode-hook 'rc/set-up-whitespace-handling)
 (add-hook 'lua-mode-hook 'rc/set-up-whitespace-handling)
 (add-hook 'rust-mode-hook 'rc/set-up-whitespace-handling)
@@ -93,11 +94,11 @@
 
 ;;; Ada mode (also requires gnatcoll-sqlite and gnatcoll_xref)
 ;; (rc/require 'ada-mode)
-;; 
+;;
 ;; (defgroup project-build nil
 ;;   "LSP options for Project"
 ;;   :group 'ada-mode)
-;; 
+;;
 ;; (defcustom project-build-type "Debug"
 ;;   "Controls the type of build of a project.
 ;;    Default is Debug, other choices are Release and Coverage."
@@ -106,10 +107,10 @@
 ;;           (const "Coverage")
 ;;           (const "Release"))
 ;;   :group 'project-build)
-;; 
+;;
 ;; (setq ada-xref-tool 'ada-gnat-xref)
 
-;;; c-mode
+;; c-mode
 (setq-default c-basic-offset 4
               c-default-style '((java-mode . "java")
                                 (awk-mode . "awk")
@@ -148,18 +149,18 @@
             (interactive)
             (add-to-list 'tex-verbatim-environments "code")))
 
-;; Text mode
+;;; Text mode
 (add-hook 'text-mode-hook
           '(lambda ()
              (setq indent-tabs-mode nil)
              (setq tab-width 4)
              (setq indent-line-function (quote insert-tab))))
 
-;; Enable uppercase and lower-case commands (C-x C-u and C-x C-l)
+;;; Enable uppercase and lower-case commands (C-x C-u and C-x C-l)
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 
-;;; Multiple cursors
+;; Multiple cursors
 (rc/require 'multiple-cursors)
 
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
@@ -186,7 +187,7 @@
  '(custom-enabled-themes '(deeper-blue))
  '(custom-safe-themes default)
  '(package-selected-packages
-   '(smex multiple-cursors move-text magit editorconfig dash-functional)))
+   '(smex multiple-cursors move-text magit editorconfig dash-functional tuareg company company-lsp lsp-mode))
  '(frame-brackground-mode 'dark)
  '(global-display-line-numbers-mode t)
  '(hl-todo-keyword-faces
@@ -204,13 +205,11 @@
      ("TEMP" . "#b1951d")
      ("FIXME" . "#dc752f")
      ("XXX+" . "#dc752f")
-     ("\\?\\?\\?+" . "#dc752f"))
- '(package-selected-packages
-   '(smex magit lean-mode tuareg company company-lsp company-coq lsp-mode))
+     ("\\?\\?\\?+" . "#dc752f")))
  '(pdf-view-midnight-colors '("#b2b2b2" . "#292b2e"))
  '(whitespace-style
    (quote
-    (face tabs spaces trailing space-before-tab newline indentation empty space-after-tab space-mark tab-mark))))
+    (face empty trailing tab-mark space-mark))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
