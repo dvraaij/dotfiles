@@ -48,6 +48,18 @@
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
+;;; Tabs
+(setq custom-tab-width 4)
+
+(defun disable-tabs ()
+  (interactive)
+  (setq indent-tabs-mode nil))
+(defun enable-tabs ()
+  (interactive)
+  (local-set-key (kbd "TAB") 'tab-to-tab-stop)
+  (setq indent-tabs-mode t)
+  (setq tab-width custom-tab-width))
+
 ;;; Whitespace mode
 (defun rc/set-up-whitespace-handling ()
   (interactive)
@@ -150,11 +162,7 @@
             (add-to-list 'tex-verbatim-environments "code")))
 
 ;;; Text mode
-(add-hook 'text-mode-hook
-          '(lambda ()
-             (setq indent-tabs-mode nil)
-             (setq tab-width 4)
-             (setq indent-line-function (quote insert-tab))))
+(add-hook 'text-mode-hook 'disable-tabs)
 
 ;;; Enable uppercase and lower-case commands (C-x C-u and C-x C-l)
 (put 'upcase-region 'disabled nil)
@@ -220,4 +228,3 @@
 
 ;; Fix
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
-
