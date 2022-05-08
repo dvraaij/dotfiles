@@ -6,28 +6,34 @@ if [ -d ~/work/man ]; then
     export MANPATH=$(manpath -g):~/work/man
 fi
 
-# setup environment for OPAM
+# setup environment for OPAM.
 # eval $(opam env)
 
 # add Lean to path.
 # PATH="$HOME/.elan/bin:$PATH"
 
-# add GNAT, SPARK and PolyORB
-# GNAT_CE_DIR_X86_64="$HOME/opt/GNAT/2021"
-# GNAT_CE_DIR_ARM="$HOME/opt/GNAT/2021-arm-elf"
+# add Alire to path.
+ALIRE_DIR="$HOME/opt/alr"
+PATH="$ALIRE_DIR/bin:$PATH"
 
-# PATH="$GNAT_CE_DIR_X86_64/bin:$PATH
-# PATH="$GNAT_CE_DIR_ARM/bin:$PATH
-# PATH="$HOME/opt/PolyORB/bin:$PATH
+# add GNAT / GtkAda (Community Edition).
+GNAT_CE_DIR_X86_64="$HOME/opt/GNAT/2021"
+PATH="$GNAT_CE_DIR_X86_64/bin:$PATH"
+export GPR_PROJECT_PATH="$GNAT_CE_DIR_X86_64/lib/gnat:$GPR_PROJECT_PATH"
 
-# SPARK Lemmas.
-# export SPARK_LEMMAS_OBJECT_DIR=$GNAT_CE_DIR_X86_64/include/spark/obj
-# export SPARK_LEMMAS_INSTALLED=True
-# export SPARK_LEMMAS_BODY_MODE=Off
+# add SPARK / GNATprove.
+GNATPROVE_DIR_X86_64="$HOME/opt/gnatprove-x86_64-linux-11.2.0-1"
+PATH="$GNATPROVE_DIR_X86_64/bin:$PATH"
+export GPR_PROJECT_PATH="$GNATPROVE_DIR_X86_64/lib/gnat:$GPR_PROJECT_PATH"
 
-# export SPARK_HEAP_OBJECT_DIR=$GNAT_CE_DIR_X86_64/include/spark/obj
-# export SPARK_HEAP_INSTALLED=True
+export SPARK_LEMMAS_OBJECT_DIR="$GNATPROVE_DIR_X86_64/include/spark/obj"
+export SPARK_LEMMAS_INSTALLED=True
+export SPARK_LEMMAS_BODY_MODE=Off
 
-# export GPR_PROJECT_PATH=$GNAT_CE_DIR_X86_64/lib/gnat/:$GPR_PROJECT_PATH
-# export GPR_PROJECT_PATH=$HOME/opt/gtkada/lib/gnat:$GPR_PROJECT_PATH
-# export GPR_PROJECT_PATH=$HOME/opt/PolyORB/lib/gnat/:$GPR_PROJECT_PATH
+export SPARK_HEAP_OBJECT_DIR="$GNATPROVE_DIR_X86_64/include/spark/obj"
+export SPARK_HEAP_INSTALLED=True
+
+# add PolyORB.
+# POLYORB_DIR="$HOME/opt/polyorb"
+# PATH="$POLYORB_DIR/bin:$PATH"
+# export GPR_PROJECT_PATH="$POLYORB_DIR/lib/gnat:$GPR_PROJECT_PATH"
