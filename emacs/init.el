@@ -142,18 +142,18 @@
 ;;       sudo mkdir emacs
 ;;       sudo cp /usr/share/emacs/site-lisp/why3.* ./emacs
 
-(setq why3-share
-      (if (boundp 'why3-share) why3-share (ignore-errors (car (process-lines "why3" "--print-datadir")))))
+;; (setq why3-share
+;;      (if (boundp 'why3-share) why3-share (ignore-errors (car (process-lines "why3" "--print-datadir")))))
 
-(setq why3el
-      (let ((f (expand-file-name "emacs/why3.elc" why3-share)))
-	(if (file-readable-p f) f
-	  (let ((f (expand-file-name "emacs/site-lisp/why3.elc" opam-share)))
-	    (if (file-readable-p f) f nil)))))
+;; (setq why3el
+;;      (let ((f (expand-file-name "emacs/why3.elc" why3-share)))
+;;	(if (file-readable-p f) f
+;;	  (let ((f (expand-file-name "emacs/site-lisp/why3.elc" opam-share)))
+;;	    (if (file-readable-p f) f nil)))))
 
-(when why3el
-  (autoload 'why3-mode why3el "Major mode for Why3." t)
-  (setq auto-mode-alist (cons '("\\.mlw$" . why3-mode) auto-mode-alist)))
+;;(when why3el
+;;  (autoload 'why3-mode why3el "Major mode for Why3." t)
+;;  (setq auto-mode-alist (cons '("\\.mlw$" . why3-mode) auto-mode-alist)))
 
 ;;; LaTeX mode
 (add-hook 'tex-mode-hook
@@ -194,8 +194,6 @@
    ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
  '(custom-enabled-themes '(deeper-blue))
  '(custom-safe-themes default)
- '(package-selected-packages
-   '(smex multiple-cursors move-text magit editorconfig dash-functional tuareg company company-lsp lsp-mode))
  '(frame-brackground-mode 'dark)
  '(global-display-line-numbers-mode t)
  '(hl-todo-keyword-faces
@@ -214,10 +212,10 @@
      ("FIXME" . "#dc752f")
      ("XXX+" . "#dc752f")
      ("\\?\\?\\?+" . "#dc752f")))
+ '(package-selected-packages
+   '(smex multiple-cursors move-text magit editorconfig dash-functional tuareg company company-lsp lsp-mode))
  '(pdf-view-midnight-colors '("#b2b2b2" . "#292b2e"))
- '(whitespace-style
-   (quote
-    (face empty trailing tab-mark space-mark))))
+ '(whitespace-style '(face empty trailing tab-mark space-mark)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
