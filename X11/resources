@@ -53,7 +53,7 @@ Xft.hintstyle:  hintmedium
 
 ! Appearance
 !URxvt.font:             xft:monospace:size=9
-URxvt.font:             xft:iosevka:size=11
+URxvt.font:             xft:Iosevka Term:size=11
 URxvt.letterSpace:      0      
 URxvt.lineSpace:        0
 URxvt.internalBorder:   6
