@@ -13,16 +13,14 @@ fi
 # PATH="$HOME/.elan/bin:$PATH"
 
 # add Alire to path.
-ALIRE_DIR="$HOME/opt/alr"
-PATH="$ALIRE_DIR/bin:$PATH"
+# ALIRE_DIR="$HOME/opt/alr"
+# PATH="$ALIRE_DIR/bin:$PATH"
 
-# add GNAT / GtkAda (Community Edition).
-GNAT_CE_DIR_X86_64="$HOME/opt/GNAT/2021"
-PATH="$GNAT_CE_DIR_X86_64/bin:$PATH"
-export GPR_PROJECT_PATH="$GNAT_CE_DIR_X86_64/lib/gnat:$GPR_PROJECT_PATH"
+# add parser for Emacs ada-mode to path.
+PATH="$HOME/opt/emacs-ada-mode/bin:$PATH"
 
 # add SPARK / GNATprove.
-GNATPROVE_DIR_X86_64="$HOME/opt/gnatprove-x86_64-linux-11.2.0-1"
+GNATPROVE_DIR_X86_64="$HOME/opt/gnatprove-x86_64-linux-12.1.0-1"
 PATH="$GNATPROVE_DIR_X86_64/bin:$PATH"
 export GPR_PROJECT_PATH="$GNATPROVE_DIR_X86_64/lib/gnat:$GPR_PROJECT_PATH"
 
@@ -32,6 +30,18 @@ export SPARK_LEMMAS_BODY_MODE=Off
 
 export SPARK_HEAP_OBJECT_DIR="$GNATPROVE_DIR_X86_64/include/spark/obj"
 export SPARK_HEAP_INSTALLED=True
+
+# add GNAT Studio to path.
+GNATSTUDIO_DIR="$HOME/opt/gnatstudio-23.0w-20220512-x86_64-linux-bin"
+PATH="$GNATSTUDIO_DIR/bin:$PATH"
+
+# add GPRbuild to path.
+# GPRBUILD_DIR="$HOME/opt/gprbuild-x86_64-linux-22.0.0-1"
+# PATH="$GPRBUILD_DIR/bin:$PATH"
+
+# add GNAT LLVM to path.
+# GNAT_LLVM_DIR="$HOME/opt/gnat-llvm"
+# PATH="$GNAT_LLVM_DIR/llvm-interface/bin:$PATH"
 
 # add PolyORB.
 # POLYORB_DIR="$HOME/opt/polyorb"
