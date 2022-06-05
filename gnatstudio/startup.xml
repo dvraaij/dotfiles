@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<GNAT_Studio>
+  <startup file="highlight_column.py" load="FALSE"  />
+  <startup file="copy_paste_toolbar.py" load="TRUE"  />
+  <startup file="copy_paste.py" load="TRUE"  />
+  <startup file="goto_begin.py" load="TRUE"  />
+  <startup file="formatfile.py" load="TRUE"  />
+  <startup file="closeold.py" load="TRUE"  />
+</GNAT_Studio>
