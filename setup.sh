@@ -48,4 +48,4 @@ add_or_replace '.gitconfig'    '.config/git/config'
 add_or_replace '.gtkrc-2.0'    '.config/gtk-2.0/settings.ini'
 add_or_replace '.gnatstudio'   '.config/gnatstudio'
 add_or_replace '.icons'        '.config/icons/'
-
+add_or_replace '.quiltrc'      '.config/quilt/rc'
