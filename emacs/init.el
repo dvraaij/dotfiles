@@ -99,6 +99,14 @@
 
 (global-set-key (kbd "C-x g") 'magit-status)
 
+;;; Ediff
+(setq ediff-keep-variants nil)
+(setq ediff-make-buffers-readonly-at-startup nil)
+(setq ediff-merge-revisions-with-ancestor t)
+(setq ediff-show-clashes-only t)
+(setq ediff-split-window-function 'split-window-horizontally)
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+
 ;;; Editorconfig
 (rc/require 'editorconfig)
 (editorconfig-mode 1)
