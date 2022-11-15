@@ -50,6 +50,7 @@
 
 ;;; Tabs
 (setq custom-tab-width 4)
+(setq-default indent-tabs-mode nil)
 
 (defun disable-tabs ()
   (interactive)
