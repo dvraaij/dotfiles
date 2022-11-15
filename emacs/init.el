@@ -111,23 +111,10 @@
 (rc/require 'editorconfig)
 (editorconfig-mode 1)
 
-;;; Ada mode (also requires gnatcoll-sqlite and gnatcoll_xref)
-;; (rc/require 'ada-mode)
-;;
-;; (defgroup project-build nil
-;;   "LSP options for Project"
-;;   :group 'ada-mode)
-;;
-;; (defcustom project-build-type "Debug"
-;;   "Controls the type of build of a project.
-;;    Default is Debug, other choices are Release and Coverage."
-;;   :type '(choice
-;;           (const "Debug")
-;;           (const "Coverage")
-;;           (const "Release"))
-;;   :group 'project-build)
-;;
-;; (setq ada-xref-tool 'ada-gnat-xref)
+;;; Ada mode (requires gnatcoll-sqlite and gnatcoll-xref)
+(rc/require 'ada-mode)
+(setq ada-case-strict nil)
+(setq wisi-incremental-parse-enable t)
 
 ;; c-mode
 (setq-default c-basic-offset 4
@@ -220,7 +207,7 @@
      ("XXX+" . "#dc752f")
      ("\\?\\?\\?+" . "#dc752f")))
  '(package-selected-packages
-   '(smex multiple-cursors move-text magit editorconfig dash-functional tuareg company company-lsp lsp-mode))
+   '(ada-mode smex multiple-cursors move-text magit editorconfig dash-functional tuareg company company-lsp lsp-mode))
  '(pdf-view-midnight-colors '("#b2b2b2" . "#292b2e"))
  '(whitespace-style '(face empty trailing tab-mark space-mark)))
 
