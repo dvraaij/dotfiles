@@ -7,7 +7,7 @@ add_or_replace () {
 	echo "[INFO] skipping $1 : already a symlink."
 	return
     fi
-        
+
     # Remove file if it already exists.
     if [ -f "$1" ]; then
 	echo "[INFO] removing file $1."
@@ -18,15 +18,15 @@ add_or_replace () {
     if [ -d "$1" ]; then
 	echo "[INFO] removing directory $1."
 	rm -Idr "$1"
-    fi    
-    
+    fi
+
     # Create symlink.
     echo "[INFO] creating sym. link $1 -> $2."
     ln -s "$2" "$1"
 }
 
 # Ensure we're in the home folder.
-cd ~ || exit       
+cd ~ || exit
 
 # Bash
 add_or_replace '.bashrc'       '.config/bash/rc'
@@ -44,6 +44,7 @@ add_or_replace '.vimrc'        '.config/vim/rc'
 
 # Other
 add_or_replace '.ssh'          '.config/ssh/'
+add_or_replace '.gdbinit'      '.config/gdb/init'
 add_or_replace '.gitconfig'    '.config/git/config'
 add_or_replace '.gtkrc-2.0'    '.config/gtk-2.0/settings.ini'
 add_or_replace '.gnatstudio'   '.config/gnatstudio'
