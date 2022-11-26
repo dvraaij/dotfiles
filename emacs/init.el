@@ -43,6 +43,7 @@
 
 ;; Use ido and smex.
 (ido-mode 1)
+(setq ido-auto-merge-work-directories-length -1)
 
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
