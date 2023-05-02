@@ -16,8 +16,9 @@ fi
 # ALIRE_DIR="$HOME/opt/alr"
 # PATH="$ALIRE_DIR/bin:$PATH"
 
-# add parser for Emacs ada-mode to path.
+# add parser for Emacs ada-mode and gpr-mode to path.
 PATH="$HOME/opt/emacs-ada-mode/bin:$PATH"
+PATH="$HOME/opt/emacs-gpr-mode/bin:$PATH"
 
 # add SPARK / GNATprove.
 GNATPROVE_DIR_X86_64="$HOME/opt/gnatprove-x86_64-linux-12.1.0-1"
