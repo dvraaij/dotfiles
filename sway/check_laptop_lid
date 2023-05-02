@@ -1,0 +1,12 @@
+#!/usr/bin/bash
+
+# This script is called when Sway is being (re)loaded (see Sway config-file). It
+# check whether the laptop lid is open or closed and enables the output
+# accordingly. The output (display name) can be obtained via `swaymsg -t
+# get_outputs`
+
+if grep -q open /proc/acpi/button/lid/LID/state; then
+    swaymsg output $1 enable
+else
+    swaymsg output $1 disable
+fi

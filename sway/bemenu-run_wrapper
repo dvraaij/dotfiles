@@ -1,0 +1,18 @@
+#!/usr/bin/bash
+
+# Palette (matched with colors in Sway-config file)
+bg_color='#2F343F'
+inactive_bg_color='#2F343F'
+text_color='#F3F4F5'
+inactive_text_color='#676E7D'
+urgent_bg_color='#E53935'
+indicator_color='#00FF00'
+
+# ...and the actual invokation
+bemenu-run --fn 'Iosevka 11' \
+           --tb $bg_color --tf $text_color \
+           --fb $bg_color --ff $text_color \
+           --nb $bg_color --nf $inactive_text_color \
+           --ab $bg_color --af $inactive_text_color \
+           --hb $bg_color --hf $text_color \
+           --hp 10 -H 25 -n -p '>'
