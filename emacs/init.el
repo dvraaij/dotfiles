@@ -209,8 +209,10 @@
      ("XXX+" . "#dc752f")
      ("\\?\\?\\?+" . "#dc752f")))
  '(package-selected-packages
-   '(ada-mode smex multiple-cursors move-text magit editorconfig dash-functional tuareg company company-lsp lsp-mode))
+   '(magit rust-mode gpr-mode ada-mode eglot ada-ref-man smex move-text editorconfig dash-functional tuareg company company-lsp lsp-mode))
  '(pdf-view-midnight-colors '("#b2b2b2" . "#292b2e"))
+ '(warning-suppress-log-types '((comp) (comp)))
+ '(warning-suppress-types '((comp)))
  '(whitespace-style '(face empty trailing tab-mark space-mark)))
 
 (custom-set-faces
