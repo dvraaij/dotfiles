@@ -4,18 +4,20 @@
 [core]
   editor = vim
   autocrlf = input
+[init]
+  defaultBranch = main
+[rebase]
+  updateRefs = true
 [push]
   default = current
-[format]
-  pretty = oneline
 [log]
   abbrevCommit = true
+[format]
+  pretty = oneline
 [alias]
   unstage = reset --
   s  = status
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all
-[init]
-  defaultBranch = main
 [http]
   postBuffer = 32M
   maxRequestBuffer = 32M
