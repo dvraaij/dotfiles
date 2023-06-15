@@ -10,6 +10,7 @@ order += "wireless _first_"
 order += "ethernet _first_"
 order += "battery 0"
 order += "cpu_usage"
+order += "cpu_temperature 0"
 order += "memory"
 order += "tztime local"
 
@@ -50,6 +51,11 @@ cpu_usage {
         format = " %usage"
 }
 
+cpu_temperature 0 {
+        format = " %degrees °C"
+        path = "/sys/devices/platform/coretemp.0/hwmon/hwmon5/temp1_input"
+}
+
 memory {
         format = " %used"
         threshold_degraded = "10%"
@@ -58,4 +64,4 @@ memory {
 
 tztime local {
        format = "%d %b %Y %H:%M"
-} 
+}
