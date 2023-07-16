@@ -2,18 +2,18 @@
 
 set $mod Mod4
 
-# mouse behavior.
+# Set mouse behavior.
 focus_follows_mouse no
 
-# use Mouse+$mod to drag floating windows to their wanted position
+# Use Mouse+$mod to drag floating windows to their wanted position.
 floating_modifier $mod
 
-# font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
-#font pango:monospace 8
+# Set font for window titles. Will also be used by the bar unless a
+# different font is used in the bar {} block below.
+# font pango:monospace 8
 font pango:Iosevka 10
 
-# set wallpaper
+# Set wallpaper.
 output * background ~/.config/sway/wallpaper center
 
 # xss-lock grabs a logind suspend inhibit lock and will use swaylock to lock
@@ -39,69 +39,69 @@ bindsym XF86MonBrightnessUp   exec brightnessctl set 5%+
 set $laptop eDP-1
 exec_always ~/.config/sway/check_laptop_lid $laptop
 
-# use urxvt(1) using XWayland, load .Xresources when Sway starts.
+# Use urxvt(1) using XWayland, load .Xresources when Sway starts.
 exec_always xrdb -load ~/.Xresources
 bindsym $mod+Return exec urxvt
 
-# use bemenu(1) as program launcher. The bemenu-run command is wrapped to
+# Use bemenu(1) as program launcher. The bemenu-run command is wrapped to
 # ease the theming.
 set $menu ~/.config/sway/bemenu-run_wrapper | xargs swaymsg exec
 bindsym $mod+d exec $menu
 
-# change focus
+# Key bindings for changing the focus.
 bindsym $mod+j focus left
 bindsym $mod+k focus down
 bindsym $mod+l focus up
 bindsym $mod+semicolon focus right
 
-# alternatively, you can use the cursor keys
+# Alternatively, you can use the cursor keys.
 bindsym $mod+Left  focus left
 bindsym $mod+Down  focus down
 bindsym $mod+Up    focus up
 bindsym $mod+Right focus right
 
-# kill focused window
+# Key binding to kill a focused window.
 bindsym $mod+Shift+q kill
 
-# move focused window
+# Key bindings to move a focused window.
 bindsym $mod+Shift+j move left
 bindsym $mod+Shift+k move down
 bindsym $mod+Shift+l move up
 bindsym $mod+Shift+semicolon move right
 
-# alternatively, you can use the cursor keys
+# Alternatively, you can use the cursor keys.
 bindsym $mod+Shift+Left  move left
 bindsym $mod+Shift+Down  move down
 bindsym $mod+Shift+Up    move up
 bindsym $mod+Shift+Right move right
 
-# split in horizontal orientation
+# Key binding to split in horizontal orientation.
 bindsym $mod+h split h
 
-# split in vertical orientation
+# Keybining to split in vertical orientation.
 bindsym $mod+v split v
 
-# enter fullscreen mode for the focused container
+# Key binding to enter fullscreen mode for the focused container.
 bindsym $mod+f fullscreen toggle
 
-# change container layout (stacked, tabbed, toggle split)
+# Key bindings to change container layout (stacked, tabbed, toggle split).
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
-# toggle tiling / floating
+# Key binding to toggle tiling / floating.
 bindsym $mod+Shift+space floating toggle
 
-# change focus between tiling / floating windows
+# Key binding to change focus between tiling / floating windows.
 bindsym $mod+space focus mode_toggle
 
-# focus the parent container
+# Key binding to focus the parent container.
 bindsym $mod+a focus parent
 
-# focus the child container
+# Key binding to focus the child container.
 #bindsym $mod+d focus child
 
-# define names for default workspaces for which we configure key bindings later on.
+# Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1"
 set $ws2 "2"
@@ -114,7 +114,7 @@ set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
 
-# switch to workspace
+# Key bindings to switch workspaces.
 bindsym $mod+1 workspace number $ws1
 bindsym $mod+2 workspace number $ws2
 bindsym $mod+3 workspace number $ws3
@@ -126,7 +126,7 @@ bindsym $mod+8 workspace number $ws8
 bindsym $mod+9 workspace number $ws9
 bindsym $mod+0 workspace number $ws10
 
-# move focused container to workspace
+# Key bindings to move a focused container to some workspace.
 bindsym $mod+Shift+1 move container to workspace number $ws1
 bindsym $mod+Shift+2 move container to workspace number $ws2
 bindsym $mod+Shift+3 move container to workspace number $ws3
@@ -138,14 +138,15 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
-# reload the configuration file
+# Key binding to reload the configuration file.
 bindsym $mod+Shift+c reload
-# restart sway inplace (preserves your layout/session, can be used to upgrade sway)
+# Key binding to restart sway inplace (preserves your layout/session, can
+# be used to upgrade sway)
 bindsym $mod+Shift+r restart
-# exit sway (logs you out of your X session)
+# Key binding to exit sway (logs you out of your X session).
 bindsym $mod+Shift+e exec "swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway?' -B 'Yes, exit sway' 'swaymsg exit'"
 
-# resize window (you can also use the mouse for that)
+# Key bindings to resize a  window (you can also use the mouse for that).
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
 
@@ -172,7 +173,7 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# colors, based on arc darker theme
+# Definition of various colors, based on arc darker theme.
 #
 #   see also
 #     . https://www.youtube.com/watch?v=ARKIwOlazKI
@@ -191,7 +192,7 @@ client.unfocused        $inactive-bg-color $inactive-bg-color $inactive-text-col
 client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color $indicator-color
 client.urgent           $urgent-bg-color   $urgent-bg-color   $text-color          $indicator-color
 
-# start sway-bar(1) to display a workspace bar, use i3status(1) to query system stats.
+# Start sway-bar(1) to display a workspace bar, use i3status(1) to query system stats.
 bar {
         status_command i3status
         colors {
@@ -204,10 +205,10 @@ bar {
         }
 }
 
-# key binding for locking the system.
+# Key binding for locking the system.
 bindsym $mod+shift+x exec swaylock --image ~/.config/sway/wallpaper
 
-# assign Workspaces:
+# Pre-assigned workspaces for some applications.
 assign [class="Gnatstudio_exe"] $ws2
 assign [class="Firefox"]        $ws3
 
