@@ -208,7 +208,3 @@ bar {
 # Key binding for locking the system.
 bindsym $mod+shift+x exec swaylock --image ~/.config/sway/wallpaper
 
-# Pre-assigned workspaces for some applications.
-assign [class="Gnatstudio_exe"] $ws2
-assign [class="Firefox"]        $ws3
-
