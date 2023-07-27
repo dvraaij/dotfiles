@@ -2,50 +2,52 @@
 
 set $mod Mod4
 
-# Set mouse behavior.
 focus_follows_mouse no
-
-# Use Mouse+$mod to drag floating windows to their wanted position.
 floating_modifier $mod
 
-# Set font for window titles. Will also be used by the bar unless a
-# different font is used in the bar {} block below.
-# font pango:monospace 8
 font pango:Iosevka 10
 
-# Set wallpaper.
+set $swayexit 'swaynag -t warning -m "Exit sway?" -B "Yes" "swaymsg exit"'
+set $swaylock 'swaylock --daemonize --image ~/.config/sway/wallpaper'
+set $swaydpmsoff 'swaymsg "output * dpms off"'
+set $swaydpmson  'swaymsg "output * dpms on"'
+
+exec swayidle -w \
+  idlehint 300              \
+   timeout 300 $swaylock    \
+   timeout 300 $swaydpmsoff resume $swaydpmson \
+  before-sleep $swaylock    \
+          lock $swaylock    \
+  after-resume $swaydpmson  \
+        unlock $swaydpmson
+
+set $laptop eDP-1
+
+output * adaptive_sync on
 output * background ~/.config/sway/wallpaper center
 
-# xss-lock grabs a logind suspend inhibit lock and will use swaylock to lock
-# the screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- swaylock --nofork --image ~/.config/sway/wallpaper
-
-# NetworkManager is the most popular way to manage wireless networks on Linux,
-# and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
-
-# Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@   +10%   && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@   -10%   && $refresh_i3status
-bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute   @DEFAULT_SINK@   toggle && $refresh_i3status
-bindsym XF86AudioMicMute     exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
-
-# Use brightnessctl to adjust the brightness of the screen.
-bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
-bindsym XF86MonBrightnessUp   exec brightnessctl set 5%+
-
-# Check the state of the laptop lid.
-set $laptop eDP-1
+# Clamshell support, check the state of the laptop lid.
 exec_always ~/.config/sway/check_laptop_lid $laptop
 
-# Use urxvt(1) using XWayland, load .Xresources when Sway starts.
+# NetworkManager is the most popular way to manage wireless networks on
+# Linux, and nm-applet is a desktop environment-independent system tray
+# GUI for it.
+exec nm-applet
+
+# Key bindings to reload the configuration file, restart sway inplace,
+# lock and exit sway.
+bindsym $mod+shift+c reload
+bindsym $mod+shift+r restart
+bindsym $mod+shift+x exec $swaylock
+bindsym $mod+shift+e exec $swayexit
+
+# Use urxvt(1) using XWayland, load .Xresources when sway starts.
 exec_always xrdb -load ~/.Xresources
-bindsym $mod+Return exec urxvt
+bindsym $mod+return exec urxvt
 
 # Use bemenu(1) as program launcher. The bemenu-run command is wrapped to
 # ease the theming.
-set $menu ~/.config/sway/bemenu-run_wrapper | xargs swaymsg exec
+set $menu "~/.config/sway/bemenu-run_wrapper | xargs swaymsg exec"
 bindsym $mod+d exec $menu
 
 # Key bindings for changing the focus.
@@ -55,30 +57,28 @@ bindsym $mod+l focus up
 bindsym $mod+semicolon focus right
 
 # Alternatively, you can use the cursor keys.
-bindsym $mod+Left  focus left
-bindsym $mod+Down  focus down
-bindsym $mod+Up    focus up
-bindsym $mod+Right focus right
+bindsym $mod+left  focus left
+bindsym $mod+down  focus down
+bindsym $mod+up    focus up
+bindsym $mod+right focus right
 
 # Key binding to kill a focused window.
-bindsym $mod+Shift+q kill
+bindsym $mod+shift+q kill
 
 # Key bindings to move a focused window.
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+shift+j move left
+bindsym $mod+shift+k move down
+bindsym $mod+shift+l move up
+bindsym $mod+shift+semicolon move right
 
 # Alternatively, you can use the cursor keys.
-bindsym $mod+Shift+Left  move left
-bindsym $mod+Shift+Down  move down
-bindsym $mod+Shift+Up    move up
-bindsym $mod+Shift+Right move right
+bindsym $mod+shift+Left  move left
+bindsym $mod+shift+Down  move down
+bindsym $mod+shift+Up    move up
+bindsym $mod+shift+Right move right
 
-# Key binding to split in horizontal orientation.
+# Key binding to split in horizontal or vertical orientation.
 bindsym $mod+h split h
-
-# Keybining to split in vertical orientation.
 bindsym $mod+v split v
 
 # Key binding to enter fullscreen mode for the focused container.
@@ -90,15 +90,13 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # Key binding to toggle tiling / floating.
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+shift+space floating toggle
 
 # Key binding to change focus between tiling / floating windows.
 bindsym $mod+space focus mode_toggle
 
-# Key binding to focus the parent container.
+# Key binding to focus the parent or child container.
 bindsym $mod+a focus parent
-
-# Key binding to focus the child container.
 #bindsym $mod+d focus child
 
 # Define names for default workspaces for which we configure key bindings later on.
@@ -127,24 +125,16 @@ bindsym $mod+9 workspace number $ws9
 bindsym $mod+0 workspace number $ws10
 
 # Key bindings to move a focused container to some workspace.
-bindsym $mod+Shift+1 move container to workspace number $ws1
-bindsym $mod+Shift+2 move container to workspace number $ws2
-bindsym $mod+Shift+3 move container to workspace number $ws3
-bindsym $mod+Shift+4 move container to workspace number $ws4
-bindsym $mod+Shift+5 move container to workspace number $ws5
-bindsym $mod+Shift+6 move container to workspace number $ws6
-bindsym $mod+Shift+7 move container to workspace number $ws7
-bindsym $mod+Shift+8 move container to workspace number $ws8
-bindsym $mod+Shift+9 move container to workspace number $ws9
-bindsym $mod+Shift+0 move container to workspace number $ws10
-
-# Key binding to reload the configuration file.
-bindsym $mod+Shift+c reload
-# Key binding to restart sway inplace (preserves your layout/session, can
-# be used to upgrade sway)
-bindsym $mod+Shift+r restart
-# Key binding to exit sway (logs you out of your X session).
-bindsym $mod+Shift+e exec "swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway?' -B 'Yes, exit sway' 'swaymsg exit'"
+bindsym $mod+shift+1 move container to workspace number $ws1
+bindsym $mod+shift+2 move container to workspace number $ws2
+bindsym $mod+shift+3 move container to workspace number $ws3
+bindsym $mod+shift+4 move container to workspace number $ws4
+bindsym $mod+shift+5 move container to workspace number $ws5
+bindsym $mod+shift+6 move container to workspace number $ws6
+bindsym $mod+shift+7 move container to workspace number $ws7
+bindsym $mod+shift+8 move container to workspace number $ws8
+bindsym $mod+shift+9 move container to workspace number $ws9
+bindsym $mod+shift+0 move container to workspace number $ws10
 
 # Key bindings to resize a  window (you can also use the mouse for that).
 mode "resize" {
@@ -160,18 +150,29 @@ mode "resize" {
         bindsym semicolon resize grow   width  10 px or 10 ppt
 
         # same bindings, but for the arrow keys
-        bindsym Left  resize shrink width  10 px or 10 ppt
-        bindsym Down  resize grow   height 10 px or 10 ppt
-        bindsym Up    resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow   width  10 px or 10 ppt
+        bindsym left  resize shrink width  10 px or 10 ppt
+        bindsym down  resize grow   height 10 px or 10 ppt
+        bindsym up    resize shrink height 10 px or 10 ppt
+        bindsym right resize grow   width  10 px or 10 ppt
 
         # back to normal: Enter or Escape or $mod+r
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+        bindsym return mode "default"
+        bindsym escape mode "default"
         bindsym $mod+r mode "default"
 }
 
 bindsym $mod+r mode "resize"
+
+# Use pactl to adjust volume in PulseAudio.
+set $refresh_i3status 'killall -SIGUSR1 i3status'
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@   +10%   && $refresh_i3status
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@   -10%   && $refresh_i3status
+bindsym XF86AudioMute        exec pactl set-sink-mute   @DEFAULT_SINK@   toggle && $refresh_i3status
+bindsym XF86AudioMicMute     exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# Use brightnessctl to adjust the brightness of the screen.
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp   exec brightnessctl set 5%+
 
 # Definition of various colors, based on arc darker theme.
 #
@@ -204,7 +205,4 @@ bar {
                urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
         }
 }
-
-# Key binding for locking the system.
-bindsym $mod+shift+x exec swaylock --image ~/.config/sway/wallpaper
 
