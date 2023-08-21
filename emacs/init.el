@@ -118,6 +118,20 @@
 (setq ada-case-strict nil)
 (setq wisi-incremental-parse-enable t)
 
+;; For the Ada langage server.
+(defgroup project-build nil
+  "LSP options for Project"
+  :group 'ada-mode)
+
+(defcustom project-build-type "Debug"
+  "Controls the type of build of a project.
+   Default is Debug, other choices are Release and Coverage."
+  :type '(choice
+          (const "Debug")
+          (const "Coverage")
+          (const "Release"))
+  :group 'project-build)
+
 ;; c-mode
 (setq-default c-basic-offset 4
               c-default-style '((java-mode . "java")
