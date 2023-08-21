@@ -227,7 +227,7 @@
      ("XXX+" . "#dc752f")
      ("\\?\\?\\?+" . "#dc752f")))
  '(package-selected-packages
-   '(poke-mode magit rust-mode gpr-mode ada-mode eglot ada-ref-man smex move-text editorconfig dash-functional tuareg company company-lsp lsp-mode))
+   '(gpr-mode ada-mode magit poke poke-mode rust-mode eglot ada-ref-man smex move-text editorconfig dash-functional tuareg company company-lsp lsp-mode))
  '(pdf-view-midnight-colors '("#b2b2b2" . "#292b2e"))
  '(warning-suppress-log-types '((comp) (comp)))
  '(warning-suppress-types '((comp)))
