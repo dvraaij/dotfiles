@@ -113,6 +113,10 @@
 (rc/require 'editorconfig)
 (editorconfig-mode 1)
 
+;;; Ada light mode
+;;; See also: https://github.com/sebastianpoeplau/ada-light-mode
+;; (load-library "~/.config/emacs/site-lisp/ada-light-mode.el")
+
 ;;; Ada mode (requires gnatcoll-sqlite and gnatcoll-xref)
 (rc/require 'ada-mode)
 (setq ada-case-strict nil)
