@@ -23,7 +23,6 @@ exec swayidle -w \
 
 set $laptop eDP-1
 
-output * adaptive_sync on
 output * background ~/.config/sway/wallpaper center
 
 # Clamshell support, check the state of the laptop lid.
