@@ -41,8 +41,11 @@ bindsym $mod+shift+x exec $swaylock
 bindsym $mod+shift+e exec $swayexit
 
 # Use urxvt(1) using XWayland, load .Xresources when sway starts.
-exec_always xrdb -load ~/.Xresources
-bindsym $mod+return exec urxvt
+#exec_always xrdb -load ~/.Xresources
+#bindsym $mod+return exec urxvt
+
+# Use alacritty as default shell.
+bindsym $mod+return exec alacritty
 
 # Use bemenu(1) as program launcher. The bemenu-run command is wrapped to
 # ease the theming.
@@ -204,4 +207,3 @@ bar {
                urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
         }
 }
-

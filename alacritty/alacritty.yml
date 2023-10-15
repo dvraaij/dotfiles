@@ -1,0 +1,90 @@
+# Configuration for Alacritty, the GPU enhanced terminal emulator.
+
+window:
+  title: alacritty
+  dynamic_title: true
+
+  padding:
+    x: 6
+    y: 6
+
+scrolling:
+  history: 10000
+  multiplier: 3
+
+font:
+  normal:
+    family: Iosevka Term
+    style: Regular
+
+  bold:
+    family: Iosevka Term
+    style: Bold
+
+  italic:
+    family: Iosevka Term
+    style: Italic
+
+  bold_italic:
+    family: Iosevka Term
+    style: Bold Italic
+
+  size: 11.0
+
+  offset:
+    x: 1
+    y: 0
+
+draw_bold_text_with_bright_colors: true
+
+# Colorscheme based on "Cobalt2" on https://mayccoll.github.io/Gogh/
+colors:
+  primary:
+    background: '#141C21'
+    foreground: '#C0BEBF'
+
+  cursor:
+    text: CellBackground
+    cursor: '#00FF00'
+
+  vi_mode_cursor:
+    text: CellBackground
+    cursor: CellForeground
+
+  search:
+    matches:
+      foreground: '#000000'
+      background: '#ffffff'
+    focused_match:
+      foreground: '#ffffff'
+      background: '#000000'
+
+  normal:
+    black:   '#000000'
+    red:     '#FF0000'
+    green:   '#38DE21'
+    yellow:  '#FFE50A'
+    blue:    '#1460D2'
+    magenta: '#FF005D'
+    cyan:    '#00BBBB'
+    white:   '#BBBBBB'
+
+  bright:
+    black:   '#555555'
+    red:     '#F40E17'
+    green:   '#3BD01D'
+    yellow:  '#EDC809'
+    blue:    '#5555FF'
+    magenta: '#FF55FF'
+    cyan:    '#6AE3FA'
+    white:   '#FFFFFF'
+
+cursor:
+  style: Block
+  unfocused_hollow: true
+
+key_bindings:
+  # Copy, as in Emacs.
+  - { key: W, mods: Alt    , action: Copy  }
+  # Paste, as in Emacs.
+  - { key: Y, mods: Control, action: Paste }
