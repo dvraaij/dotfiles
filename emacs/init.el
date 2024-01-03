@@ -1,244 +1,239 @@
 (package-initialize)
 
-(load "~/.config/emacs/rc/rc.el")
+;; Package sources.
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+;; (add-to-list 'package-archives '("gnu-devel" . "https://elpa.gnu.org/devel/"))
 
-;;; No startup screen.
-(setq inhibit-startup-screen 1)
+;; Prefer GNU over Melpa.
+(setq package-archive-priorities '(("gnu" . 20)("melpa" . 10)))
 
-;;; Appearance
-(defun rc/get-default-font ()
-  (cond
-   ((eq system-type 'windows-nt) "Consolas-12")
-   ((eq system-type 'gnu/linux) "Iosevka-12")))
+(use-package emacs
 
-(add-to-list 'default-frame-alist `(font . ,(rc/get-default-font)))
+  :bind  (("S-C-<left>"  . shrink-window-horizontally)
+          ("S-C-<right>" . enlarge-window-horizontally)
+          ("S-C-<down>"  . shrink-window)
+          ("S-C-<up>"    . enlarge-window))
 
-(tool-bar-mode 0)
-(menu-bar-mode 1)
-(scroll-bar-mode 1)
-(column-number-mode 1)
-(show-paren-mode 1)
-(size-indication-mode 1)
+  :config
 
-;;; Easy switching between windows.
-(windmove-default-keybindings)
+  ;; Font
+  (set-frame-font
+   (cond
+    ((eq system-type 'windows-nt) "Consolas-12")
+    ((eq system-type 'gnu/linux) "Iosevka-12"))
+   nil t)
 
-;;; Easy window resizing.
-(global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
-(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
-(global-set-key (kbd "S-C-<down>") 'shrink-window)
-(global-set-key (kbd "S-C-<up>") 'enlarge-window)
+  ;; Tabs
+  (setq custom-tab-width 4)
+  (setq-default indent-tabs-mode nil)
 
-;;; Scrolling.
-(setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
-(setq mouse-wheel-progressive-speed nil)
-(setq mouse-wheel-follow-mouse 't)
-(setq scroll-step 1)
+  (defun enable-fixed-tab-width-using-only-spaces ()
+    "Fixed tab width using only spaces"
+    (interactive)
+    (keymap-local-set "TAB" 'tab-to-tab-stop)  ; use `keymap-local-set` as of Emacs 29.1
+    (indent-tabs-mode -1)                      ; use only spaces
+    (setq tab-width custom-tab-width))
 
-;;; Backups.
-(setq backup-directory-alist
-      `((".*" . ,temporary-file-directory)))
-(setq auto-save-file-name-transforms
-      `((".*" ,temporary-file-directory t)))
+  :custom
 
-;; Use ido and smex.
-(ido-mode 1)
-(setq ido-auto-merge-work-directories-length -1)
+  ;; Startup
+  (inhibit-startup-screen t)
+  (initial-major-mode 'fundamental-mode)
+  (initial-scratch-message "")
 
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+  ;; Appearance
+  (tool-bar-mode nil)
+  (scroll-bar-mode 'right)
+  (menu-bar-mode t)
+  (column-number-mode t)
+  (show-paren-mode t)
+  (size-indication-mode t)
+  (global-display-line-numbers-mode t)
 
-;;; Tabs
-(setq custom-tab-width 4)
-(setq-default indent-tabs-mode nil)
+  ;; Scrolling.
+  (scroll-step 1)
 
-(defun disable-tabs ()
-  (interactive)
-  (setq indent-tabs-mode nil))
-(defun enable-tabs ()
-  (interactive)
-  (local-set-key (kbd "TAB") 'tab-to-tab-stop)
-  (setq indent-tabs-mode t)
-  (setq tab-width custom-tab-width))
+  ;; Backups.
+  (backup-directory-alist
+   `((".*" . ,temporary-file-directory)))
+  (auto-save-file-name-transforms
+   `((".*" ,temporary-file-directory t))))
 
-;;; Whitespace mode
-(defun rc/set-up-whitespace-handling ()
-  (interactive)
-  (whitespace-mode 0)
-  (add-to-list 'write-file-functions 'delete-trailing-whitespace))
+(use-package ada-mode
+  :load-path "~/opt/old-ada-mode"
+  :mode (("\\.gpr$"     . ada-mode)
+         ("\\.ad[asb]$" . ada-mode)))
 
-(add-hook 'emacs-lisp-mode 'rc/set-up-whitespace-handling)
-(add-hook 'tuareg-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'c++-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'c-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'java-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'lua-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'rust-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'scala-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'markdown-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'haskell-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'python-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'erlang-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'asm-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'nasm-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'go-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'nim-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'why3-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'yaml-mode-hook 'rc/set-up-whitespace-handling)
+(use-package agda2
+  :mode (("\\.agda$"      . agda2-mode)
+         ("\\.lagda$"     . agda2-mode)
+         ("\\.lagda.md$"  . agda2-mode)
+         ("\\.lagda.rst$" . agda2-mode)
+         ("\\.lagda.tex$" . agda2-mode)))
 
-;;; display-line-numbers-mode
-(when (version<= "26.0.50" emacs-version)
-  (global-display-line-numbers-mode))
+(use-package ansi-color
+  :custom-face
+  (ansi-color-black          ((t (:foreground "#000000" :background "#000000"))))
+  (ansi-color-red            ((t (:foreground "#FF0000" :background "#FF0000"))))
+  (ansi-color-green          ((t (:foreground "#38DE21" :background "#38DE21"))))
+  (ansi-color-yellow         ((t (:foreground "#FFE50A" :background "#FFE50A"))))
+  (ansi-color-blue           ((t (:foreground "#1460D2" :background "#1460D2"))))
+  (ansi-color-magenta        ((t (:foreground "#FF005D" :background "#FF005D"))))
+  (ansi-color-cyan           ((t (:foreground "#00BBBB" :background "#00BBBB"))))
+  (ansi-color-white          ((t (:foreground "#BBBBBB" :background "#BBBBBB"))))
+  (ansi-color-bright-black   ((t (:foreground "#555555" :background "#555555"))))
+  (ansi-color-bright-red     ((t (:foreground "#F40E17" :background "#F40E17"))))
+  (ansi-color-bright-green   ((t (:foreground "#3BD01D" :background "#3BD01D"))))
+  (ansi-color-bright-yellow  ((t (:foreground "#EDC809" :background "#EDC809"))))
+  (ansi-color-bright-blue    ((t (:foreground "#5555FF" :background "#5555FF"))))
+  (ansi-color-bright-magenta ((t (:foreground "#FF55FF" :background "#FF55FF"))))
+  (ansi-color-bright-cyan    ((t (:foreground "#6AE3FA" :background "#6AE3FA"))))
+  (ansi-color-bright-white   ((t (:foreground "#FFFFFF" :background "#FFFFFF")))))
 
-;;; Magit
-;; magit requres this lib, but it is not installed automatically on
-;; Windows.
-(rc/require 'cl-lib)
-(rc/require 'magit)
+(use-package cc-mode
+  :hook (c-mode . (lambda ()
+                    (interactive)
+                    (c-toggle-comment-style nil)))
+  :custom
+  (c-basic-offset 4)
+  (c-default-style '((java-mode . "java")
+                     (awk-mode  . "awk")
+                     (other     . "bsd"))))
 
-(setq magit-auto-revert-mode nil)
+;; cl-lib is required by Magit on Windows.
+(when (eq system-type 'windows-nt)
+  (use-package cl-lib))
 
-(global-set-key (kbd "C-x g") 'magit-status)
+(use-package custom
+  :custom
+  (custom-enabled-themes '(deeper-blue)))
 
-;;; Ediff
-(setq ediff-keep-variants nil)
-(setq ediff-make-buffers-readonly-at-startup nil)
-(setq ediff-merge-revisions-with-ancestor t)
-(setq ediff-show-clashes-only t)
-(setq ediff-split-window-function 'split-window-horizontally)
-(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+(use-package ediff
+  :custom
+  (ediff-keep-variants nil)
+  (ediff-make-buffers-readonly-at-startup nil)
+  (ediff-merge-revisions-with-ancestor t)
+  (ediff-show-clashes-only t)
+  (ediff-split-window-function 'split-window-horizontally)
+  (ediff-window-setup-function 'ediff-setup-windows-plain))
 
-;;; Editorconfig
-(rc/require 'editorconfig)
-(editorconfig-mode 1)
+(use-package editorconfig
+  :ensure t)
 
-;;; Ada light mode
-;;; See also: https://github.com/sebastianpoeplau/ada-light-mode
-;; (load-library "~/.config/emacs/site-lisp/ada-light-mode.el")
+(use-package etags
+  :bind ("M-T" . tags-search)
+  :custom
+  (tags-add-tables t)
+  (tags-apropos-verbose t)
+  (tags-case-fold-search nil)
+  (tags-revert-without-query t))
 
-;;; Ada mode (requires gnatcoll-sqlite and gnatcoll-xref)
-(rc/require 'ada-mode)
-(setq ada-case-strict nil)
-(setq wisi-incremental-parse-enable t)
+(use-package gud
+  :commands gud-gdb
+  :bind (("<f9>"    . gud-cont)
+         ("<f10>"   . gud-next)
+         ("<f11>"   . gud-step)
+         ("S-<f11>" . gud-finish))
+  :custom
+  (gdb-find-source-frame t)
+  (gdb-many-windows t))
 
-;; For the Ada langage server.
-(defgroup project-build nil
-  "LSP options for Project"
-  :group 'ada-mode)
+(use-package ido
+  :custom
+  (ido-mode t)
+  (ido-everywhere t)
+  (ido-auto-merge-work-directories-length nil))
 
-(defcustom project-build-type "Debug"
-  "Controls the type of build of a project.
-   Default is Debug, other choices are Release and Coverage."
-  :type '(choice
-          (const "Debug")
-          (const "Coverage")
-          (const "Release"))
-  :group 'project-build)
+(use-package magit
+  :ensure t
+  :bind ("C-x g" . magit-status))
 
-;; c-mode
-(setq-default c-basic-offset 4
-              c-default-style '((java-mode . "java")
-                                (awk-mode . "awk")
-                                (other . "bsd")))
+(use-package magit-autorevert
+  :after magit
+  :custom
+  (magit-auto-revert-mode nil))
 
-(add-hook 'c-mode-hook (lambda ()
-                         (interactive)
-                         (c-toggle-comment-style -1)))
+(use-package move-text
+  :ensure t
+  :bind (("M-p" . move-text-up)
+         ("M-n" . move-text-down)))
 
-;;; why3-mode.
+(use-package multiple-cursors
+  :ensure t
+  :bind (("C-S-c C-S-c" . mc/edit-lines)
+         ("C->"         . mc/mark-next-like-this)
+         ("C-<"         . mc/mark-previous-like-this)
+         ("C-c C-<"     . mc/mark-all-like-this)
+         ("C-\""        . mc/skip-to-next-like-this)
+         ("C-:"         . mc/skip-to-previous-like-this)))
 
-;;    Note that Fedora package why3-emacs copies the why3.el and why3.elc
-;;    to a location that works only if OPAM is installed. You ned to
-;;    copy them to the corredt location manually.
-;;
-;;       cd /usr/share/why3
-;;       sudo mkdir emacs
-;;       sudo cp /usr/share/emacs/site-lisp/why3.* ./emacs
+(use-package mwheel
+  :custom
+  (mouse-wheel-scroll-amount '(1 ((shift) . 1)))
+  (mouse-wheel-progressive-speed nil)
+  (mouse-wheel-follow-mouse 't))
 
-;; (setq why3-share
-;;      (if (boundp 'why3-share) why3-share (ignore-errors (car (process-lines "why3" "--print-datadir")))))
+(use-package pdf-tools
+  :disabled
+  :magic ("%PDF" . pdf-view-mode)
+  :custom
+  (pdf-view-midnight-colors '("#B2B2B2" . "#292B2E")))
 
-;; (setq why3el
-;;      (let ((f (expand-file-name "emacs/why3.elc" why3-share)))
-;;	(if (file-readable-p f) f
-;;	  (let ((f (expand-file-name "emacs/site-lisp/why3.elc" opam-share)))
-;;	    (if (file-readable-p f) f nil)))))
+(use-package prog-mode
+  :hook (prog-mode . (lambda ()
+                       (interactive)
+                       (add-to-list 'write-file-functions 'delete-trailing-whitespace))))
 
-;;(when why3el
-;;  (autoload 'why3-mode why3el "Major mode for Why3." t)
-;;  (setq auto-mode-alist (cons '("\\.mlw$" . why3-mode) auto-mode-alist)))
+(use-package proof-general
+  :ensure t
+  :no-require t
+  :custom
+  (proof-splash-time 1))
 
-;;; LaTeX mode
-(add-hook 'tex-mode-hook
-          (lambda ()
-            (interactive)
-            (add-to-list 'tex-verbatim-environments "code")))
+(use-package smex
+  :ensure t
+  :bind (("M-x"         . smex)
+         ("M-X"         . smex-major-mode-commands)
+         ("C-c C-c M-x" . execute-extended-command)))
 
-;;; Text mode
-(add-hook 'text-mode-hook 'disable-tabs)
+(use-package tex-mode
+  :config
+  (add-to-list 'tex-verbatim-environments "code"))
 
-;;; Enable uppercase and lower-case commands (C-x C-u and C-x C-l)
-(put 'upcase-region 'disabled nil)
-(put 'downcase-region 'disabled nil)
+(use-package text-mode
+  :hook (text-mode . enable-fixed-tab-width-using-only-spaces))
 
-;; Multiple cursors
-(rc/require 'multiple-cursors)
+(use-package tuareg
+  :ensure t
+  :mode (("\\.ocamlinit$" . tuareg-mode)))
 
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-(global-set-key (kbd "C->")         'mc/mark-next-like-this)
-(global-set-key (kbd "C-<")         'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<")     'mc/mark-all-like-this)
-(global-set-key (kbd "C-\"")        'mc/skip-to-next-like-this)
-(global-set-key (kbd "C-:")         'mc/skip-to-previous-like-this)
+(use-package whitespace
+  :custom
+  (whitespace-style '(face empty trailing tab-mark space-mark)))
 
-;;; Move Text
-(rc/require 'move-text)
-(global-set-key (kbd "M-p") 'move-text-up)
-(global-set-key (kbd "M-n") 'move-text-down)
+(use-package why3
+  :if (locate-library "why3.el")
+  :mode ("\\.mlw$" . why3-mode))
+
+(use-package warnings
+  :custom
+  (warning-suppress-log-types '((comp) (comp)))
+  (warning-suppress-types '((comp))))
+
+(use-package windmove
+  :custom
+  (windmove-default-keybindings '([ignore] shift)))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
- '(ansi-color-names-vector
-   ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
- '(custom-enabled-themes '(deeper-blue))
- '(custom-safe-themes default)
- '(frame-brackground-mode 'dark)
- '(global-display-line-numbers-mode t)
- '(hl-todo-keyword-faces
-   '(("TODO" . "#dc752f")
-     ("NEXT" . "#dc752f")
-     ("THEM" . "#2d9574")
-     ("PROG" . "#4f97d7")
-     ("OKAY" . "#4f97d7")
-     ("DONT" . "#f2241f")
-     ("FAIL" . "#f2241f")
-     ("DONE" . "#86dc2f")
-     ("NOTE" . "#b1951d")
-     ("KLUDGE" . "#b1951d")
-     ("HACK" . "#b1951d")
-     ("TEMP" . "#b1951d")
-     ("FIXME" . "#dc752f")
-     ("XXX+" . "#dc752f")
-     ("\\?\\?\\?+" . "#dc752f")))
  '(package-selected-packages
-   '(gpr-mode ada-mode magit poke poke-mode rust-mode eglot ada-ref-man smex move-text editorconfig dash-functional tuareg company company-lsp lsp-mode))
- '(pdf-view-midnight-colors '("#b2b2b2" . "#292b2e"))
- '(warning-suppress-log-types '((comp) (comp)))
- '(warning-suppress-types '((comp)))
- '(whitespace-style '(face empty trailing tab-mark space-mark)))
-
+   '(yaml-mode magit smex move-text editorconfig dash-functional tuareg proof-general multiple-cursors)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(tuareg-font-lock-attribute-face ((t (:inherit font-lock-preprocessor-face)))))
-
-;; Fix
-(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+ )
