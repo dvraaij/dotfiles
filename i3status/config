@@ -26,7 +26,7 @@ disk "/home" {
 }
 
 wireless _first_ {
-         format_up = " (%quality at %essid, %bitrate) %ip"
+         format_up = " %quality at %essid, %ip (%bitrate)"
          format_down = " n/a"
 }
 
