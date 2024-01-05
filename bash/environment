@@ -3,38 +3,28 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 
 # Find personal man pages
 if [ -d ~/work/man ]; then
-    export MANPATH=$(manpath -g):~/work/man
+    export MANPATH=$(manpath -g):$HOME/work/man
 fi
 
 # Setup environment for OPAM.
 # eval $(opam env)
 
-# Add Lean to path.
-# PATH="$HOME/.elan/bin:$PATH"
-
 # Add Alire to path.
-# ALIRE_DIR="$HOME/opt/alr"
-# PATH="$ALIRE_DIR/bin:$PATH"
+ALIRE_DIR="$HOME/opt/alr"
+PATH="$ALIRE_DIR/bin:$PATH"
 
 # Add parser for Emacs ada-mode and gpr-mode to path.
-#PATH="$HOME/opt/emacs-ada-mode/bin:$PATH"
-#PATH="$HOME/opt/emacs-gpr-mode/bin:$PATH"
+# PATH="$HOME/opt/emacs-ada-mode/bin:$PATH"
+# PATH="$HOME/opt/emacs-gpr-mode/bin:$PATH"
 
 # Add SPARK / GNATprove.
-#GNATPROVE_DIR_X86_64="$HOME/opt/gnatprove"
-#PATH="$GNATPROVE_DIR_X86_64/bin:$PATH"
-#export GPR_PROJECT_PATH="$GNATPROVE_DIR_X86_64/lib/gnat:$GPR_PROJECT_PATH"
-
-#export SPARK_LEMMAS_OBJECT_DIR="$GNATPROVE_DIR_X86_64/include/spark/obj"
-#export SPARK_LEMMAS_INSTALLED=True
-#export SPARK_LEMMAS_BODY_MODE=Off
-
-#export SPARK_HEAP_OBJECT_DIR="$GNATPROVE_DIR_X86_64/include/spark/obj"
-#export SPARK_HEAP_INSTALLED=True
+# GNATPROVE_DIR_X86_64="$HOME/opt/gnatprove"
+# PATH="$GNATPROVE_DIR_X86_64/bin:$PATH"
+# export GPR_PROJECT_PATH="$GNATPROVE_DIR_X86_64/lib/gnat:$GPR_PROJECT_PATH"
 
 # Add the Ada language server to path.
-ADA_LANGUAGE_SERVER_DIR="$HOME/opt/ada_language_server"
-PATH="$ADA_LANGUAGE_SERVER_DIR:$PATH"
+# ADA_LANGUAGE_SERVER_DIR="$HOME/opt/ada_language_server"
+# PATH="$ADA_LANGUAGE_SERVER_DIR:$PATH"
 
 # Add GNAT Studio to path.
 GNATSTUDIO_DIR="$HOME/opt/gnatstudio"
