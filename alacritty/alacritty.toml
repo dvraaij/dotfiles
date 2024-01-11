@@ -1,0 +1,91 @@
+[colors]
+draw_bold_text_with_bright_colors = true
+
+[colors.primary]
+background = "#141C21"
+foreground = "#C0BEBF"
+
+[colors.cursor]
+cursor = "#00FF00"
+text   = "CellBackground"
+
+[colors.normal]
+black   = "#000000"
+blue    = "#1460D2"
+cyan    = "#00BBBB"
+green   = "#38DE21"
+magenta = "#FF005D"
+red     = "#FF0000"
+white   = "#BBBBBB"
+yellow  = "#FFE50A"
+
+[colors.bright]
+black   = "#555555"
+blue    = "#5555FF"
+cyan    = "#6AE3FA"
+green   = "#3BD01D"
+magenta = "#FF55FF"
+red     = "#F40E17"
+white   = "#FFFFFF"
+yellow  = "#EDC809"
+
+[colors.search.focused_match]
+background = "#000000"
+foreground = "#ffffff"
+
+[colors.search.matches]
+background = "#ffffff"
+foreground = "#000000"
+
+[colors.vi_mode_cursor]
+cursor = "CellForeground"
+text   = "CellBackground"
+
+[cursor]
+style = "Block"
+unfocused_hollow = true
+
+[font]
+size = 11.0
+
+[font.bold]
+family = "Iosevka Term"
+style  = "Bold"
+
+[font.bold_italic]
+family = "Iosevka Term"
+style  = "Bold Italic"
+
+[font.italic]
+family = "Iosevka Term"
+style  = "Italic"
+
+[font.normal]
+family = "Iosevka Term"
+style  = "Regular"
+
+[font.offset]
+x = 1
+y = 0
+
+[[keyboard.bindings]]
+action = "Copy"
+mods   = "Alt"
+key    = "W"
+
+[[keyboard.bindings]]
+action = "Paste"
+mods   = "Control"
+key    = "Y"
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[window]
+dynamic_title = true
+title = "alacritty"
+
+[window.padding]
+x = 6
+y = 6
