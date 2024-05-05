@@ -108,6 +108,10 @@
   :custom
   (custom-enabled-themes '(deeper-blue)))
 
+(use-package dired
+  :custom
+  (dired-kill-when-opening-new-dired-buffer t))
+
 (use-package ediff
   :custom
   (ediff-keep-variants nil)
