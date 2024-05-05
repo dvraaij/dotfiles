@@ -2,7 +2,7 @@
   name = dvraaij
   email = dvraaij@users.noreply.github.com
 [core]
-  editor = vim
+  editor = emacs
   autocrlf = input
 [init]
   defaultBranch = main
@@ -21,3 +21,4 @@
 [http]
   postBuffer = 32M
   maxRequestBuffer = 32M
+
