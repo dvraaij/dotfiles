@@ -13,30 +13,18 @@ fi
 ALIRE_DIR="$HOME/opt/alr"
 PATH="$ALIRE_DIR/bin:$PATH"
 
-# Add parser for Emacs ada-mode and gpr-mode to path.
-# PATH="$HOME/opt/emacs-ada-mode/bin:$PATH"
-# PATH="$HOME/opt/emacs-gpr-mode/bin:$PATH"
-
 # Add SPARK / GNATprove.
 # GNATPROVE_DIR_X86_64="$HOME/opt/gnatprove"
 # PATH="$GNATPROVE_DIR_X86_64/bin:$PATH"
 # export GPR_PROJECT_PATH="$GNATPROVE_DIR_X86_64/lib/gnat:$GPR_PROJECT_PATH"
 
 # Add the Ada language server to path.
-# ADA_LANGUAGE_SERVER_DIR="$HOME/opt/ada_language_server"
-# PATH="$ADA_LANGUAGE_SERVER_DIR:$PATH"
+ADA_LANGUAGE_SERVER_DIR="$HOME/opt/ada_language_server"
+PATH="$ADA_LANGUAGE_SERVER_DIR:$PATH"
 
 # Add GNAT Studio to path.
 GNATSTUDIO_DIR="$HOME/opt/gnatstudio"
 PATH="$GNATSTUDIO_DIR:$PATH"
-
-# Add GPRbuild to path.
-# GPRBUILD_DIR="$HOME/opt/gprbuild-x86_64-linux-22.0.0-1"
-# PATH="$GPRBUILD_DIR/bin:$PATH"
-
-# Add GNAT LLVM to path.
-# GNAT_LLVM_DIR="$HOME/opt/gnat-llvm"
-# PATH="$GNAT_LLVM_DIR/llvm-interface/bin:$PATH"
 
 # Add PolyORB.
 # POLYORB_DIR="$HOME/opt/polyorb"
